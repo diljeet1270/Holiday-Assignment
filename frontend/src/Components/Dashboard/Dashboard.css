@@ -1,0 +1,23 @@
+
+.item3 { 
+  grid-area: waves;
+  margin: 30px 25px;
+  background-color: white;
+}
+.item4 { grid-area: friends;
+  margin: 15px 20px;
+  background-color: white;
+}
+.item5 { grid-area: footer; }
+.grid-container{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 0.6fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 0.3fr;
+    grid-template-areas: 
+    'sidebar header'
+    'sidebar waves'
+    'sidebar friends'
+    'sidebar footer';
+    background-color: rgb(244,245,250);
+}

@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+  align-items: center;
+  color: black;
+}
+.header img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+}
+.header div {
+  margin: 0;
+  padding: 0;
+}
