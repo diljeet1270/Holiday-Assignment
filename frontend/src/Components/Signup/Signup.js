@@ -5,9 +5,9 @@ import imr from "../../assets/LogoImage.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import styles from './Signup.module.css';
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../Footer/Footer";
-import "../Signup/Signup.css";
 const Signup = () => {
   let navigate = useNavigate();
   const initialValues = {
@@ -54,11 +54,11 @@ const Signup = () => {
 
   return (
     <>
-      <div className="signup-container">
-        <div className="signup-image">
+      <div className={styles.signupContainer}>
+        <div className={styles.signupImage}>
           <img src={imr} alt="Signup" />
         </div>
-        <div className="form-container">
+        <div className={styles.formContainer}>
           <Formik
             initialValues={initialValues}
             validationSchema={yup.object().shape({
@@ -98,36 +98,36 @@ const Signup = () => {
             <Form>
               <h1>SignUp</h1>
               <br />
-              <hr className="form-line" />
+              <hr className={styles.formLine} />
               <br />
-              <div className="form-names">
-                <div className="form-name">
+              <div className={styles.formNames}>
+                <div className={styles.formName}>
                   <label htmlFor="firstName">First Name</label>
                   <Field type="text" id="firstName" name="firstName" />
                   <ErrorMessage name="firstName" component="div" />
                 </div>
-                <div className="form-name">
+                <div className={styles.formName}>
                   <label htmlFor="lastName">Last Name</label>
                   <Field type="text" id="lastName" name="lastName" />
                   <ErrorMessage name="lastName" component="div" />
                 </div>
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="email">Enter Email</label>
                 <Field type="text" id="email" name="email" />
                 <ErrorMessage name="email" component="div" />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="phoneNumber">Enter Phone No.</label>
                 <Field type="text" id="phoneNumber" name="phoneNumber" />
                 <ErrorMessage name="phoneNumber" component="div" />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="password">Password</label>
                 <Field type="password" id="password" name="password" />
                 <ErrorMessage name="password" component="div" />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <Field
                   type="password"
@@ -136,12 +136,12 @@ const Signup = () => {
                 />
                 <ErrorMessage name="confirmPassword" component="div" />
               </div>
-              <div className="form-group">
-                <Link to={"/login"} className="navigation-link">
+              <div className={styles.formGroup}>
+                <Link to={"/login"} className={styles.navigationLink}>
                   Login
                 </Link>
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <button type="submit">SIGN UP</button>
               </div>
             </Form>

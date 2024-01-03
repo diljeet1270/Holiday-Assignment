@@ -1,15 +1,16 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import "../Signup/Signup.css";
 import imr from '../../assets/LogoImage.jpg'
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../Login/Login.css'
+import styles from  './Login.module.css';
 import Footer from "../Footer/Footer";
 const Login = () => {
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
@@ -28,6 +29,9 @@ const Login = () => {
           draggable: true,
           progress: undefined,
         });
+        localStorage.setItem("token",response.data.data.user.token);
+        console.log(response);
+        navigate('/dashboard');
       } else {
         toast.error(response.data.message, {
           position: 'top-center',
@@ -47,11 +51,11 @@ const Login = () => {
 
   return (
     <>
-    <div className="signup-container">
-      <div className="signup-image">
+    <div className={styles.loginContainer}>
+      <div className={styles.signupImage}>
         <img src={imr} alt="Signup"/>
       </div>
-      <div className="form-container">
+      <div className={styles.formContainer}>
         <Formik
           initialValues={initialValues}
           validationSchema={yup.object().shape({
@@ -65,17 +69,17 @@ const Login = () => {
           })}
           onSubmit={handleSubmit}
         >
-          <Form className="login-container">
+          <Form >
             <h1>Login Your Account</h1>
             <br/>
-            <hr className="form-line"/>
+            <hr className={styles.formLine}/>
             <br/>
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label htmlFor="email">Enter Email</label>
               <Field type="text" id="email" name="email" />
               <ErrorMessage name="email" component="div" />
             </div>
-            <div className='form-group'>
+            <div className={styles.formGroup}>
               <label htmlFor="password">Password</label>
               <Field
                 type="password"
@@ -84,10 +88,10 @@ const Login = () => {
               />
               <ErrorMessage name="password" component="div" />
             </div>
-            <div className="form-group">
-              <Link to={'/'} className="navigation-link">SignUp</Link>
+            <div className={styles.formGroup}>
+              <Link to={'/'} className={styles.navigationLink}>SignUp</Link>
             </div>
-            <div className='form-group'>
+            <div className={styles.formGroup}>
               <button type="submit">LOGIN</button>
             </div>
           </Form>

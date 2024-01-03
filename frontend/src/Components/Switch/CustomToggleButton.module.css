@@ -1,0 +1,19 @@
+/* CustomToggleButton.module.css */
+.customToggleButton {
+  .react-toggle-thumb {
+    display: none; /* Hide the thumb */
+  }
+
+  .react-toggle-track {
+    background-color: #ccc; /* Customize track color */
+    border-radius: 20px; /* Customize track border-radius */
+  }
+  .reactToggleTrackCheck {
+    display: none; /* Hide the 'On' label */
+  }
+
+  .react-toggle-track-check,
+  .react-toggle-track-x {
+    display: none; /* Hide the labels */
+  }
+}

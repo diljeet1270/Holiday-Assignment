@@ -1,7 +1,6 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
-// const jwt = require('jsonwebtoken');
-
+const {generateToken} = require('../utils/tokenUtil');
 exports.signup = async (firstName, lastName, email, password, phoneNumber) => {
   try {
     // Check if the email already exists in the user table
@@ -35,16 +34,35 @@ exports.login = async(email, password)=>{
       // Password is not valid.
       return null;
     }
+    let token=await generateToken(user.id,user.email);
     return {
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      token: token,
     };
   }
   catch(error){
     throw error;
   }
-
-}
+};
+exports.changePassword = async (id, oldPassword, newPassword) =>{
+  try{
+    const user = await User.findByPk(id);
+    console.log(id, oldPassword, newPassword);
+    const isValid = await bcrypt.compare(oldPassword, user.password);
+    if(isValid){
+      user.password=await bcrypt.hash(newPassword, 10);
+      await user.save();
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  catch (error){
+    console.error(error);
+  }
+};

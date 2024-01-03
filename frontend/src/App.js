@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Components/Dashboard/Dashboard';
 import ChangePassword from './Components/ChangePassword/ChangePassword';
+import Preferences from './Components/Preferences/Preferences';
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
         <Route path='/login' element={<Login/>}/> 
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/changepassword' element={<ChangePassword/>}/>
+        <Route path='/preferences' element={<Preferences/>}/>
        </Routes>
       </BrowserRouter>
       <ToastContainer/>
