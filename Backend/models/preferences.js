@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Preferences.init(
     {
+      userId:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        
+      },
       language: DataTypes.STRING,
       breakfast: DataTypes.TIME,
       lunch: DataTypes.TIME,
@@ -46,12 +51,32 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: 0,
       },
+      status: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1, // Default value for status
+      },
+      isDeleted: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0, // Default value for isDeleted
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,
       modelName: "Preferences",
+      timestamps: true, // Enable timestamps (createdAt and updatedAt)
+      paranoid: true, // Enable soft deletes with deletedAt
+      hooks: {
+        beforeUpdate: async (preferences, options) => {
+          if (preferences.changed("isDeleted") && preferences.isDeleted === 1) {
+            preferences.deletedAt = new Date();
+          }
+        },
+      },      
     }
   );
-
   return Preferences;
 };

@@ -97,23 +97,23 @@ const ChangePassword = () => {
           initialValues={initialValues}
         >
           <Form>
-            <div className="form-group">
+            <div className={styles.formGroup}>
             <label htmlFor="oldPassword">Old Password</label>
             <Field type="password" name="oldPassword" placeholder="Old password" />
             <ErrorMessage component="div" name="oldPassword" />
             </div>
-            <div className="form-group">
+            <div className={styles.formGroup}>
             <label htmlFor="newPassword">New Password</label>
             <Field type="password" name="newPassword" placeholder="New Password" />
             <ErrorMessage component="div" name="newPassword" />
             </div>
            
-            <div className="form-group">
+            <div className={styles.formGroup}>
             <label htmlFor="repeatNewPassword">Confirm Password</label>
             <Field type="password" name="repeatNewPassword" placeholder="Re write new password" />
             <ErrorMessage component="div" name="newPassword" />
             </div>
-            <div className='form-group'>
+            <div className={styles.formGroup}>
               <button type="submit">Update</button>
             </div>
           </Form>

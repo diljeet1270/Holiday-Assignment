@@ -1,6 +1,4 @@
 const Joi = require('joi');
-const { login } = require('../services/authService');
-
 // Validation schema for signup
 const signupSchema = Joi.object({
   firstName: Joi.string().required(),
