@@ -1,8 +1,5 @@
-const authService = require("../services/authService");
 const preferencesService = require("../services/preferencesService");
-const {
-  validatePreferencesUpdate,
-} = require("../utils/validators");
+const {validatePreferencesUpdate} = require("../utils/validators");
 const { verifyToken } = require("../utils/tokenUtil");
 
 exports.updatePreferences = async (req, res) => {
@@ -12,14 +9,15 @@ exports.updatePreferences = async (req, res) => {
       // Extract user ID from the decoded token
       const { id } = req.user;
       // Validate the preferences data
-      // const { error } = validatePreferencesUpdate(req.body);
-      // if (error) {
-      //   return res.status(400).json({
-      //     status: "error",
-      //     message: error.details[0].message,
-      //     data: null,
-      //   });
-      // }
+      console.log(req.body);
+      const { error } = validatePreferencesUpdate(req.body);
+      if (error) {
+        return res.json({
+          status: "error",
+          message: error.details[0].message,
+          data: null,
+        });
+      }
 
       // Check if there is existing data for the user in Preferences
       const existingPreferences = await preferencesService.getPreferences(id);
@@ -31,8 +29,11 @@ exports.updatePreferences = async (req, res) => {
         // If no data exists, perform an insert
         await preferencesService.createPreferences(id, req.body);
       }
-
-      res.status(200).json({ message: 'Preferences updated successfully' });
+      res.status(200).json({ 
+        status: "success",
+        message: 'Preferences updated successfully',
+        data: null,
+       });
     });
   } catch (error) {
     console.error(error);

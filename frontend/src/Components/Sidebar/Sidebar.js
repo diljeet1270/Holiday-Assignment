@@ -13,7 +13,7 @@ const Sidebar = () => {
           <nav>
             <ul>
             <li><a href="/dashboard"><span><RxDashboard/></span>Dashboard</a></li>
-          <li><a href="#"><span><CgProfile/></span>My Profile</a></li>
+          <li><a href="/profile"><span><CgProfile/></span>My Profile</a></li>
           <li><a href="/preferences"><span><MdOutlineRoomPreferences/></span>Preferences</a></li>
           <li><a href="#"><span><FaUserFriends/></span>Friends</a></li>
           <li><a href="#"><span><BsGraphUp/></span>Create Waves</a></li>

@@ -5,12 +5,14 @@ const getPreferences = async (userId) => {
   return await Preferences.findOne({ where: { userId } });
 };
 
-const updatePreferences = async (data, userId) => {
+const updatePreferences = async (userId, data) => {
   return await Preferences.update(data, { where: { userId } });
 };
 
-const createPreferences = async (data, userId) => {
-  return await Preferences.create({userId, ...data });
+const createPreferences = async (userId, data) => {
+  console.log(userId,"this is userId")
+  console.log(data,"this is data");
+  return await Preferences.create({...data, userId});
 };
 module.exports = {
   getPreferences,

@@ -32,9 +32,33 @@ const changePasswordSchema = Joi.object({
 const validateChangePassword = (data) => {
   return changePasswordSchema.validate(data, { abortEarly: false }); 
 }
+// schema for preferences.
+const preferenceSchema = Joi.object({
+  language: Joi.string().allow(null),
+  breakfast: Joi.string().allow(null),
+  lunch: Joi.string().allow(null),
+  dinner: Joi.string().allow(null),
+  wakeTime: Joi.string().allow(null),
+  bedTime: Joi.string().allow(null),
+  weight: Joi.string().allow(null),
+  height: Joi.string().allow(null),
+  bloodGlucose: Joi.string().allow(null),
+  cholestrol: Joi.string().allow(null),
+  bloodPressure: Joi.string().allow(null),
+  distance: Joi.string().allow(null),
+  systemEmails: Joi.boolean().allow(null),
+  memberServiceEmails: Joi.boolean().allow(null),
+  sms: Joi.boolean().allow(null),
+  phoneCall: Joi.boolean().allow(null),
+  post: Joi.boolean().allow(null),
+})
+const validatePreferencesUpdate = (data) => {
+  return preferenceSchema.validate(data, {abortEarly:false});
+}
 module.exports = {
   validateSignup,
   validateLogin,
   validateChangePassword,
+  validatePreferencesUpdate,
 };
 

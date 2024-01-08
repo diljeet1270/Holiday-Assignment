@@ -2,12 +2,15 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./Preferences.module.css";
+import axios from 'axios';
+import {toast} from 'react-toastify';
 import CustomToggleButton from "../Switch/CustomToggleButton";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../header/Header";
 import Footer from "../Footer/Footer";
 const Preferences = () => {
+  let token = localStorage.getItem("token");
   const initialValues = {
     language: "",
     breakfast: "",
@@ -43,9 +46,23 @@ const Preferences = () => {
     // distance: Yup.string().required("Distance is required"),
   });
 
-  const handleSubmit = (values, { setFieldValue }) => {
-    // Handle form submission logic
-    console.log(values);
+  const handleSubmit = async (values, { setFieldValue }) => {
+    try{
+      let response = await axios.put("http://localhost:3001/auth/v1/preferences", values,{
+      headers: {
+          'Authorization': `Bearer ${token}`,
+      },
+  })
+    if (response.data.status === 'success') {
+        toast.success(response.data.message);
+    } else if (response.data.status === 'error') {
+        toast.error(response.data.message);
+    }
+  }
+catch(error) {
+  toast.error('An error occurred');
+    console.error(error);
+};
   };
 
   return (
