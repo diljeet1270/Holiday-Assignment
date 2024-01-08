@@ -1,17 +1,20 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
-import profilePic from "../../assets/maleLogo.jpg";
+import React, { useState } from "react";
+import ProfileHeader from "../profileHeader/profileHeader";
 import styles from "./Myprofile.module.css";
 import Footer from "../Footer/Footer";
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../header/Header";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import BasicDetails from "../profileDetails/BasicDetails";
+import PersonalDetails from "../profileDetails/PersonalDetails";
 
 const Myprofile = () => {
+  const [activeTab, setActiveTab] = useState("basic"); // "basic" or "personal"
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className={styles.gridContainer}>
       <Sidebar />
@@ -22,26 +25,29 @@ const Myprofile = () => {
         </a>
         Profile
       </p>
-      <div className={`${styles.profileChangePicture} ${styles.pictureHeader}`}>
-        <div className={styles.firstHalf}>
-          <div className={styles.profilePicture}>
-            <img src={profilePic} alt="Profile Picture" />
-          </div>
-          <div className={styles.changePicture}>
-            <label htmlFor="upload-photo">Upload a Profile Picture</label>
-            <input type="file" id="upload-photo" // onChange={handleChange} accept="image/*" 
-            />
-          </div>
-        </div>
-        <div className={styles.secondHalf}>
-          <button>submit</button>
-        </div>
-      </div>
-      
-      <div className={styles.content}></div>
+      <ProfileHeader />
 
+      <div className={styles.content}>
+        <div className={styles.tabButtons}>
+          <button
+            onClick={() => handleTabChange("basic")}
+            className={activeTab === "basic" ? styles.activeTab : ""}
+          >
+            Basic Details
+          </button>
+          <button
+            onClick={() => handleTabChange("personal")}
+            className={activeTab === "personal" ? styles.activeTab : ""}
+          >
+            Personal Details
+          </button>
+        </div>
+        {activeTab === "basic" && <BasicDetails />}
+        {activeTab === "personal" && <PersonalDetails />}
+      </div>
       <Footer />
     </div>
   );
 };
+
 export default Myprofile;

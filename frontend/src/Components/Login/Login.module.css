@@ -46,10 +46,14 @@
     height: 50px;
     margin-right: 10px;
   }
-  label {
+  .formName label {
     display: block;
     margin-bottom: 8px;
     /* font-weight: bold; */
+  }
+  .formGroup label {
+    display: block;
+    margin-bottom: 8px;
   }
   
   .formGroup input[type="text"] {
