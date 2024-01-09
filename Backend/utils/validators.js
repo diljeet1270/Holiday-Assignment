@@ -55,10 +55,42 @@ const preferenceSchema = Joi.object({
 const validatePreferencesUpdate = (data) => {
   return preferenceSchema.validate(data, {abortEarly:false});
 }
+
+// Validation schema for basic details.
+const basicDetailsSchema = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  email: Joi.string().email().required(),
+  socialSecurityNumber: Joi.number(),
+  mobileNumber: Joi.string().pattern(/^[6-9]\d{9}$/),
+  addressOne: Joi.string().required(),
+  addressTwo: Joi.string(), 
+  city: Joi.string().required(),
+  state: Joi.string().required(),
+  zip: Joi.number().required(),
+});
+const validateBasicDetails = (data) =>{
+  return basicDetailsSchema.validate(data, {abortEarly: false}); 
+}
+const personalDetailsSchema = Joi.object({
+  dob: Joi.string().required(),
+  gender: Joi.string().required(),
+  maritalStatus: Joi.string().allow(''),
+  socialSecurityNumber: Joi.string().allow(''),
+  social: Joi.string().allow(''),
+  kids: Joi.number().allow(''),
+});
+const validatePersonalDetails= (data)=>{
+  return personalDetailsSchema.validate(data, {abortEarly : false});
+  }
+
+
 module.exports = {
   validateSignup,
   validateLogin,
   validateChangePassword,
   validatePreferencesUpdate,
+  validateBasicDetails,
+  validatePersonalDetails,
 };
 

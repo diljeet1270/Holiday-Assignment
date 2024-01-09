@@ -36,6 +36,8 @@ const personalDetails = () => {
                 component="div"
                 style={{ color: "red", fontSize: "12px" }}
               />
+              </div>
+            <div className={style.formItem}>
               <label htmlFor="gender">Gender</label>
               <Field
                 type="text"
@@ -49,6 +51,11 @@ const personalDetails = () => {
                 component="div"
                 style={{ color: "red", fontSize: "12px" }}
               />
+            </div>
+            <div className={style.formItem}>
+              <label htmlFor="maritalStatus">Marital Status</label>
+              <Field type="text" name="maritalStatus" placeholder="Male or Female"/>
+              <ErrorMessage name="maritalStatus" component='div'/>
             </div>
             <div className={style.formItem}>
               <label htmlFor="maritalStauts">Email</label>
@@ -68,6 +75,8 @@ const personalDetails = () => {
                   marginBottom: "5px",
                 }}
               />
+              </div>
+            <div className={style.formItem}>
               <label htmlFor="socialSecurityNumber">
                 Social Security (Number Only)
               </label>
@@ -88,6 +97,8 @@ const personalDetails = () => {
                 placeholder="+918082123546"
               />
               <ErrorMessage name="social" component="div" />
+              </div>
+            <div className={style.formItem}>
               <label htmlFor="kids">Address 1</label>
               <Field name="kids" placeholder="1" />
               <ErrorMessage name="kids" component="div" />

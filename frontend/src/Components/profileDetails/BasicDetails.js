@@ -8,7 +8,7 @@ const BasicDetails = () => {
     lastName: "",
     email: "",
     socialSecurityNumber: "",
-    moblieNumber: "",
+    mobileNumber: "",
     addressOne: "",
     addressTwo: "",
     city: "",
@@ -40,6 +40,8 @@ const BasicDetails = () => {
                 component="div"
                 style={{ color: "red", fontSize: "12px" }}
               />
+              </div>
+              <div className={style.formItem}>
               <label htmlFor="lastName">Last Name</label>
               <Field
                 type="text"
@@ -53,7 +55,7 @@ const BasicDetails = () => {
                 component="div"
                 style={{ color: "red", fontSize: "12px" }}
               />
-            </div>
+              </div>
             <div className={style.formItem}>
               <label htmlFor="email">Email</label>
               <Field
@@ -72,6 +74,8 @@ const BasicDetails = () => {
                   marginBottom: "5px",
                 }}
               />
+              </div>
+            <div className={style.formItem}>
               <label htmlFor="socialSecurityNumber">
                 Social Security (Number Only)
               </label>
@@ -92,6 +96,8 @@ const BasicDetails = () => {
                 placeholder="+918082123546"
               />
               <ErrorMessage name="mobileNumber" component="div" />
+              </div>
+            <div className={style.formItem}>
               <label htmlFor="addressOne">Address 1</label>
               <Field name="addressOne" placeholder="Address" />
               <ErrorMessage name="addressOne" component="div" />
@@ -100,6 +106,8 @@ const BasicDetails = () => {
               <label htmlFor="addressTwo"> Address 2</label>
               <Field name="addressTwo" placeholder="Address" />
               <ErrorMessage name="addressTwo" component="div" />
+              </div>
+            <div className={style.formItem}>
               <label htmlFor="city">City</label>
               <Field size="small" name="city" id="city" placeholder="City" />
               <ErrorMessage name="city" component="div" />

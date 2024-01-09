@@ -9,7 +9,6 @@ exports.updatePreferences = async (req, res) => {
       // Extract user ID from the decoded token
       const { id } = req.user;
       // Validate the preferences data
-      console.log(req.body);
       const { error } = validatePreferencesUpdate(req.body);
       if (error) {
         return res.json({
