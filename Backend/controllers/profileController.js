@@ -6,7 +6,8 @@ const profileServices = require('../services/profileService');
 exports.updateBasicDetails = async(req, res) => {
     try {
         verifyToken(req, res, async (decoded) => {
-            let userId = decoded.userId;
+      const { id } = req.user;
+            
             // Validate the basic details of the user
             const { error } = validateBasicDetails(req.body);
       if (error) {
@@ -16,16 +17,16 @@ exports.updateBasicDetails = async(req, res) => {
           data: null,
         })
       }
-      const entryExist = await profileServices.getBasicDetails(userId);
+      const entryExist = await profileServices.getBasicDetails(id);
       if(entryExist){
-        await profileServices.updateBasicDetails(req.body, userId);
+        await profileServices.updateBasicDetails(req.body, id);
       }else {
-        await profileServices.createBasicDetails(req.body, userId);
+        await profileServices.createBasicDetails(req.body, id);
       }
       res.status(200).json({
         status:"success",
         message :"Basic details updated successfully.",
-        data : data,
+        data : null,
       });
 
     })
@@ -43,7 +44,7 @@ exports.updateBasicDetails = async(req, res) => {
 exports.updatePersonalDetails = async(req, res) =>{
     try {
         verifyToken(req, res, async (decoded) => {
-            let userId = decoded.userId;
+          const { id } = req.user;
             // Validate the basic details of the user
             const { error } = validatePersonalDetails(req.body);
       if (error) {
@@ -53,16 +54,16 @@ exports.updatePersonalDetails = async(req, res) =>{
           data: null,
         })
       }
-      const entryExist = await profileServices.getPersonalDetails(userId);
+      const entryExist = await profileServices.getPersonalDetails(id);
       if(entryExist){
-        await profileServices.updatePersonalDetails(req.body, userId);
+        await profileServices.updatePersonalDetails(req.body, id);
       }else {
-        await profileServices.createPersonalDetails(req.body, userId);
+        await profileServices.createPersonalDetails(req.body, id);
       }
       res.status(200).json({
         status:"success",
         message :"Prosonal details updated successfully.",
-        data : data,
+        data : null,
       });
 
     })
@@ -81,9 +82,9 @@ exports.updatePersonalDetails = async(req, res) =>{
 exports.getBasicDetails = async(req, res) => {
     try {
         verifyToken(req, res, async(decoded) => {
-            const userId= decoded.userId;
+      const { id } = req.user;
 
-            const data =  await profileServices.getBasicDetails(userId);
+            const data =  await profileServices.getBasicDetails(id);
             if(!data) {
                 return res.status(401).json({
                     status: 'error',
@@ -115,9 +116,8 @@ exports.getBasicDetails = async(req, res) => {
 exports.getPersonalDetails = async(req, res) => {
     try {
         verifyToken(req, res, async(decoded) => {
-            const userId= decoded.userId;
-
-            const data =  await profileServices.getPersonalDetails(userId);
+          const { id } = req.user;
+            const data =  await profileServices.getPersonalDetails(id);
             if(!data) {
                 return res.status(401).json({
                     status: 'error',

@@ -2,8 +2,12 @@ import React from "react";
 import { Form, ErrorMessage, Formik, Field } from "formik";
 import * as yup from "yup";
 import style from "./profileDetails.module.css";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect, useCallback } from "react";
 const BasicDetails = () => {
-  const initialValues = {
+  let token = localStorage.getItem('token');
+  let initialValues = {
     firstName: "",
     lastName: "",
     email: "",
@@ -15,14 +19,81 @@ const BasicDetails = () => {
     state: "",
     zip: "",
   };
-  const handleSubmit = (values) => {
-    console.log(values);
+  // Form data for prefill.
+  const [formValues, setFormValues] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    socialSecurityNumber: "",
+    mobileNumber: "",
+    addressOne: "",
+    addressTwo: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+
+  // Use the useEffect hook to fetch data and set initial values
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/profile/v1/basicDetails",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.status === "success") {
+        setFormValues(response.data.data);
+      } else if (response.data.status === "error") {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("An error occurred");
+      console.error(error);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleSubmit = async (values) => {
+    try{
+      let response = await axios.put("http://localhost:3001/profile/v1/basicDetails", values,{
+      headers: {
+          'Authorization': `Bearer ${token}`,
+      },
+  })
+    if (response.data.status === 'success') {
+        toast.success(response.data.message);
+    } else if (response.data.status === 'error') {
+        toast.error(response.data.message);
+    }
+  }
+catch(error) {
+  toast.error('An error occurred');
+    console.error(error);
+}
   };
   return (
     <div>
       <Formik
         initialValues={initialValues}
-        validationSchema={yup.object().shape({})}
+        validationSchema={yup.object().shape({
+          firstName: yup.string(),
+          lastName: yup.string(),
+          email: yup.string().email('Invalid Email').required('Email is required'),
+          socialSecurityNumber: yup.string(),
+          mobileNumber: yup.string(),
+          addressOne: yup.string(),
+          addressTwo: yup.string(),
+          city: yup.string(),
+          state: yup.string(),
+          zip: yup.string(),
+        })}
         onSubmit={handleSubmit}
       >
         <Form>

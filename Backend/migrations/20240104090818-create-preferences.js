@@ -20,23 +20,23 @@ module.exports = {
         allowNull: true,
       },
       breakfast: {
-        type: Sequelize.TIME, // Corrected data type
+        type: Sequelize.TIME, 
         allowNull: true,
       },
       lunch: {
-        type: Sequelize.TIME, // Corrected data type
+        type: Sequelize.TIME, 
         allowNull: true,
       },
       dinner: {
-        type: Sequelize.TIME, // Corrected data type
+        type: Sequelize.TIME, 
         allowNull: true,
       },
       wakeTime: {
-        type: Sequelize.TIME, // Corrected data type
+        type: Sequelize.TIME, 
         allowNull: true,
       },
       bedTime: {
-        type: Sequelize.TIME, // Corrected data type
+        type: Sequelize.TIME, 
         allowNull: true,
       },
       weight: {

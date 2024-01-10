@@ -2,7 +2,10 @@ import React from "react";
 import { Form, ErrorMessage, Formik, Field } from "formik";
 import * as yup from "yup";
 import style from "./profileDetails.module.css";
+import axios from "axios";
+import {toast} from 'react-toastify';
 const personalDetails = () => {
+  const token = localStorage.getItem('token')
   const initialValues = {
     dob: '',
     gender: '',
@@ -11,8 +14,24 @@ const personalDetails = () => {
     social: '',
     kids: '',
   };
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    try{
+      console.log(values);
+      let response = await axios.put("http://localhost:3001/profile/v1/personalDetails", values,{
+      headers: {
+          'Authorization': `Bearer ${token}`,
+      },
+  })
+    if (response.data.status === 'success') {
+        toast.success(response.data.message);
+    } else if (response.data.status === 'error') {
+        toast.error(response.data.message);
+    }
+  }
+catch(error) {
+  toast.error('An error occurred');
+    console.error(error);
+}
   };
   return (
     <div>
@@ -43,8 +62,7 @@ const personalDetails = () => {
                 type="text"
                 name="gender"
                 id="gender"
-                placeholder="
-      Smith"
+                placeholder="Male or female"
               />
               <ErrorMessage
                 name="gender"
@@ -54,28 +72,9 @@ const personalDetails = () => {
             </div>
             <div className={style.formItem}>
               <label htmlFor="maritalStatus">Marital Status</label>
-              <Field type="text" name="maritalStatus" placeholder="Male or Female"/>
+              <Field type="text" name="maritalStatus" placeholder="Married or unmarried"/>
               <ErrorMessage name="maritalStatus" component='div'/>
             </div>
-            <div className={style.formItem}>
-              <label htmlFor="maritalStauts">Email</label>
-              <Field
-                type="maritalStauts"
-                name="maritalStauts"
-                id="maritalStauts"
-                placeholder="john@
-      doe.com"
-              />
-              <ErrorMessage
-                name="maritalStauts"
-                component="div"
-                style={{
-                  color: "red",
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                }}
-              />
-              </div>
             <div className={style.formItem}>
               <label htmlFor="socialSecurityNumber">
                 Social Security (Number Only)
@@ -89,17 +88,17 @@ const personalDetails = () => {
               <ErrorMessage name="socialSecurityNumber" component="div" />
             </div>
             <div className={style.formItem}>
-              <label htmlFor="social">Mobile Number</label>
+              <label htmlFor="social">Social</label>
               <Field
-                type="tel"
+                type="text"
                 name="social"
                 id="social"
-                placeholder="+918082123546"
+                placeholder="Facebook"
               />
               <ErrorMessage name="social" component="div" />
               </div>
             <div className={style.formItem}>
-              <label htmlFor="kids">Address 1</label>
+              <label htmlFor="kids">Kids (If any)</label>
               <Field name="kids" placeholder="1" />
               <ErrorMessage name="kids" component="div" />
             </div>
