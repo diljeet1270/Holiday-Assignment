@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import styles from  './Login.module.css';
 import Footer from "../Footer/Footer";
+import Button from "../Button/Button";
 const Login = () => {
   const navigate = useNavigate();
   const initialValues = {
@@ -17,6 +17,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
+    setSubmitting(true);
     const response = await axios.post('http://localhost:3001/auth/v1/login', values);
     try {
       if (response.data.status === 'success') {
@@ -47,6 +48,7 @@ const Login = () => {
     catch(error){
       console.error(error);
     }
+    setSubmitting(false);
   };
 
   return (
@@ -92,7 +94,7 @@ const Login = () => {
               <Link to={'/'} className={styles.navigationLink}>SignUp</Link>
             </div>
             <div className={styles.formGroup}>
-              <button type="submit">LOGIN</button>
+              <Button type="submit" label="LOGIN"/>
             </div>
           </Form>
         </Formik>

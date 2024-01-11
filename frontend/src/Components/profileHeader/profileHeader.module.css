@@ -55,6 +55,6 @@
    .submitPicture:hover{
     background-color: #f3f7fa;
    }
-   input[type='file'] {
+   .changePicture input[type='file'] {
     display: none;
    }

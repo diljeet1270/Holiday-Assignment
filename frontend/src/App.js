@@ -8,6 +8,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import ChangePassword from './Components/ChangePassword/ChangePassword';
 import Preferences from './Components/Preferences/Preferences';
 import Myprofile from './Components/Myprofile/Myprofile';
+import CreateWaves from './Components/CreateWaves/CreateWaves';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
         <Route path='/profile' element={<Myprofile/>}/>
         <Route path='/changepassword' element={<ChangePassword/>}/>
         <Route path='/preferences' element={<Preferences/>}/>
+        <Route path='/createWaves' element={<CreateWaves/>}/>
        </Routes>
       </BrowserRouter>
       <ToastContainer/>

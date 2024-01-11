@@ -4,6 +4,7 @@ import * as yup from "yup";
 import style from "./profileDetails.module.css";
 import axios from "axios";
 import {toast} from 'react-toastify';
+import Button from "../Button/Button";
 const personalDetails = () => {
   const token = localStorage.getItem('token')
   const initialValues = {
@@ -102,8 +103,8 @@ catch(error) {
               <Field name="kids" placeholder="1" />
               <ErrorMessage name="kids" component="div" />
             </div>
-            <div className={style.updateButton}>
-                <button type="submit">Update</button>
+            <div >
+                <Button type='submit' label="Update"/>
             </div>
           </div>
         </Form>

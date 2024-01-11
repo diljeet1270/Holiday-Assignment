@@ -16,7 +16,7 @@ const Sidebar = () => {
           <li><a href="/profile"><span><CgProfile/></span>My Profile</a></li>
           <li><a href="/preferences"><span><MdOutlineRoomPreferences/></span>Preferences</a></li>
           <li><a href="#"><span><FaUserFriends/></span>Friends</a></li>
-          <li><a href="#"><span><BsGraphUp/></span>Create Waves</a></li>
+          <li><a href="/createWaves"><span><BsGraphUp/></span>Create Waves</a></li>
           <li><a href="/changepassword"><span><TbPasswordUser/></span>Change Password</a></li>
             </ul>
           </nav>

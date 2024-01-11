@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import styles from './Signup.module.css';
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../Footer/Footer";
+import Button from '../Button/Button'
 const Signup = () => {
   let navigate = useNavigate();
   const initialValues = {
@@ -142,7 +143,7 @@ const Signup = () => {
                 </Link>
               </div>
               <div className={styles.formGroup}>
-                <button type="submit">SIGN UP</button>
+                <Button type="submit" label='SIGNUP'/>
               </div>
             </Form>
           </Formik>

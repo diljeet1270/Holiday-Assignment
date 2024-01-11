@@ -5,6 +5,7 @@ import style from "./profileDetails.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect, useCallback } from "react";
+import Button from "../Button/Button";
 const BasicDetails = () => {
   let token = localStorage.getItem('token');
   let initialValues = {
@@ -193,8 +194,8 @@ catch(error) {
               <Field size="small" name="zip" id="zip" placeholder="123456" />
               <ErrorMessage name="zip" component="div" />
             </div>
-            <div className={style.updateButton}>
-                <button type="submit">Update</button>
+            <div>
+                <Button label="Update" type='submit'/>
             </div>
           </div>
         </Form>
