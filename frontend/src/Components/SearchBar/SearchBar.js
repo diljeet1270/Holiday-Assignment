@@ -19,24 +19,14 @@ const SearchBar = ({employees})=> {
         startadornment={<AiOutlineSearch />}
         className={style.searchInput}
       />
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Profession</th>
-          </tr>
-        </thead>
-        <tbody>
+        <div>
           {filteredEmployees.map((employee) => (
-            <tr key={employee.name}>
-              <td>{employee.name}</td>
-              <td>{employee.age}</td>
-              <td>{employee.profession}</td>
-            </tr>
+            <div key={employee.name} className={style.itemContainer}>
+              <div>{employee.name} {employee.age}</div>
+              <div>{employee.profession}</div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
     </div>
  );
 }

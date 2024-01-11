@@ -2,15 +2,22 @@
     display: grid;
     height: 100%;
     grid-template-columns: 0.6fr 2fr;
-    grid-template-rows: 1fr 2fr 2fr 0.3fr;
+    grid-template-rows: 0.3fr 0.1fr 2fr 0.2fr;
     grid-template-areas: 
     'sidebar header'
+    'sidebar heading'
     'sidebar wavesContainer'
     'sidebar footer';
     background-color: rgb(244,245,250);
 }
+.heading {
+    margin-top: 14px;
+    margin-left: 14px;
+    font-size: 1.5em;
+    text-align: left;
+  }
 .wavesContainer {
-    margin: 0 22px;
+    margin: 24px 16px;
     height: 100%;
     background-color: white;
 }
@@ -49,15 +56,15 @@
     display: none;
   }
 .waveInputs input[type="text"] {
-        padding: 8px 12px;
+        padding-left: 15px;
         border: 1px solid #ccc;
         border-radius: 4px;
         cursor: pointer;
-        width: 100%;
+        width: 97%;
         height: 50px;
         outline: none;
-        margin-bottom: 12px;
         font-size: 1.2em;
+        margin: 12px 12px;
 }
 .waveInputs textarea {
     height: 80px;
@@ -67,7 +74,11 @@
     font-size: 1.2em;
     padding-left: 15px;
     margin-bottom: 12px;
+    margin: 12px 12px;
 }
 
+.searchBar {
+    margin: 12px 12px;
+}
  
   

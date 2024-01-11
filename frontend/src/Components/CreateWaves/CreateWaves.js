@@ -6,7 +6,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import profilePic from "../../assets/maleLogo.jpg";
 import SearchBar from "../SearchBar/SearchBar";
-
+import { FaArrowLeftLong } from "react-icons/fa6";
 const CreateWaves = () => {
     const employees = [
         { name: 'John Doe', age: 32, profession: 'Engineer' },
@@ -30,6 +30,12 @@ const CreateWaves = () => {
     <div className={styles.gridContainer}>
       <Sidebar />
       <Header />
+      <p className={styles.heading}>
+        <a href="/dashboard">
+          <FaArrowLeftLong />
+        </a>
+          Preferences
+      </p>
       <div className={styles.wavesContainer}>
         <div className={styles.profilePicContainer}>
           <div className={styles.profilePicture}>
@@ -63,7 +69,6 @@ const CreateWaves = () => {
      <Button label="Create Wave" type="submit" />
     </div>
         <div className={styles.searchBar}>
-           
             <SearchBar employees={employees}/>
         </div>
       </div>
