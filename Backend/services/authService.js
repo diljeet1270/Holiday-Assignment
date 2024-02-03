@@ -1,17 +1,17 @@
-const { User } = require("../models");
+const { usertable } = require("../models");
 const bcrypt = require("bcrypt");
 const {generateToken} = require('../utils/tokenUtil');
 exports.signup = async (firstName, lastName, email, password, phoneNumber) => {
   try {
     // Check if the email already exists in the user table
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await usertable.findOne({ where: { email } });
 
     if (existingUser) {
       // If the email is already taken, throw an error
       return null;
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    return User.create({
+    return usertable.create({
       firstName,
       lastName,
       email,
@@ -24,7 +24,7 @@ exports.signup = async (firstName, lastName, email, password, phoneNumber) => {
 };
 exports.login = async(email, password)=>{
   try{
-    const user = await User.findOne({where: {email}});
+    const user = await usertable.findOne({where: {email}});
     if (!user){
       // email is not valid.
       return null;
@@ -50,8 +50,7 @@ exports.login = async(email, password)=>{
 };
 exports.changePassword = async (id, oldPassword, newPassword) =>{
   try{
-    const user = await User.findByPk(id);
-    console.log(id, oldPassword, newPassword);
+    const user = await usertable.findByPk(id);
     const isValid = await bcrypt.compare(oldPassword, user.password);
     if(isValid){
       user.password=await bcrypt.hash(newPassword, 10);

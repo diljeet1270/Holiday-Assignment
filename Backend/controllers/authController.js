@@ -59,7 +59,6 @@ exports.login = async (req, res) => {
       });
     }
     const { email, password } = req.body;
-    console.log(email);
 
     const user = await authService.login(email, password);
     if (!user) {

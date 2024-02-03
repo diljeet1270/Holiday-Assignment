@@ -1,29 +1,28 @@
-const {BasicDetails} = require ('../models');
-const {PersonalDetails} = require('../models');
+const {usertable} = require ('../models');
 
-const getBasicDetails = async (userId) => {
-    return await BasicDetails.findOne({where:{userId}});  
+const getBasicDetails = async (id) => {
+    return await usertable.findOne({where:{id}});  
 }
 
-const updateBasicDetails = async (data, userId) =>{
-    return await BasicDetails.update(data, {where: {userId}})
+const updateBasicDetails = async (data, id) =>{
+    return await usertable.update(data, {where: {id}})
 }
 
-const createBasicDetails = async (data, userId) => {
+const createBasicDetails = async (data, id) => {
     console.log("This object is not iterable",data)
-    return await BasicDetails.create({...data,userId})
+    return await usertable.create({...data,id})
 }
 
-const getPersonalDetails = async (userId) => {
-    return await PersonalDetails.findOne({where:{userId}});  
+const getPersonalDetails = async (id) => {
+    return await usertable.findOne({where:{id}});  
 }
 
-const updatePersonalDetails = async (data, userId) =>{
-    return await PersonalDetails.update(data, {where: {userId}})
+const updatePersonalDetails = async (data, id) =>{
+    return await usertable.update(data, {where: {id}})
 }
 
-const createPersonalDetails = async (data, userId) => {
-    return await PersonalDetails.create({...data,userId})
+const createPersonalDetails = async (data, id) => {
+    return await usertable.create({...data,id})
 }
 
 module.exports = {

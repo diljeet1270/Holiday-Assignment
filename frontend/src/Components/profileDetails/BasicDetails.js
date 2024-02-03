@@ -1,65 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, ErrorMessage, Formik, Field } from "formik";
 import * as yup from "yup";
 import style from "./profileDetails.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import Button from "../Button/Button";
 const BasicDetails = () => {
   let token = localStorage.getItem('token');
-  let initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    socialSecurityNumber: "",
-    mobileNumber: "",
-    addressOne: "",
-    addressTwo: "",
-    city: "",
-    state: "",
-    zip: "",
-  };
+  
   // Form data for prefill.
-  const [formValues, setFormValues] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    socialSecurityNumber: "",
-    mobileNumber: "",
-    addressOne: "",
-    addressTwo: "",
-    city: "",
-    state: "",
-    zip: "",
-  });
-
-  // Use the useEffect hook to fetch data and set initial values
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3001/profile/v1/basicDetails",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.status === "success") {
-        setFormValues(response.data.data);
-      } else if (response.data.status === "error") {
-        toast.error(response.data.message);
+  const [data, setData] = useState({});
+const fetchData = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/profile/v1/basicDetails',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if(response.data.status){
+      setData(response.data.data);
+    }else{
+      console.log("Error Fetching Data");
       }
-    } catch (error) {
-      toast.error("An error occurred");
-      console.error(error);
-    }
-  }, [token]);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+useEffect(() => {
+  fetchData();
+}, []);
 
   const handleSubmit = async (values) => {
     try{
@@ -69,7 +41,7 @@ const BasicDetails = () => {
       },
   })
     if (response.data.status === 'success') {
-        toast.success(response.data.message);
+       toast.success(response.data.message)
     } else if (response.data.status === 'error') {
         toast.error(response.data.message);
     }
@@ -82,7 +54,18 @@ catch(error) {
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues = {{ 
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        email: data.email || "",
+        socialSecurityNumber: data.socialSecurityNumber || "",
+        phoneNumber: data.phoneNumber || "",
+        addressOne: data.addressOne || "",
+        addressTwo: data.addressTwo || "",
+        city: data.city || "",
+        state: data.state || "",
+        zip: data.zip || "",
+      }}
         validationSchema={yup.object().shape({
           firstName: yup.string(),
           lastName: yup.string(),
@@ -96,6 +79,7 @@ catch(error) {
           zip: yup.string(),
         })}
         onSubmit={handleSubmit}
+        enableReinitialize
       >
         <Form>
           <div className={style.formContainer}>
@@ -109,7 +93,7 @@ catch(error) {
               />
               <ErrorMessage
                 name="firstName"
-                component="div"
+                component="p"
                 style={{ color: "red", fontSize: "12px" }}
               />
               </div>
@@ -124,7 +108,7 @@ catch(error) {
               />
               <ErrorMessage
                 name="lastName"
-                component="div"
+                component="p"
                 style={{ color: "red", fontSize: "12px" }}
               />
               </div>
@@ -139,7 +123,7 @@ catch(error) {
               />
               <ErrorMessage
                 name="email"
-                component="div"
+                component="dp"
                 style={{
                   color: "red",
                   fontWeight: "bold",
@@ -157,17 +141,17 @@ catch(error) {
                 id="socialSecurityNumber"
                 placeholder="456128"
               />
-              <ErrorMessage name="socialSecurityNumber" component="div" />
+              <ErrorMessage name="socialSecurityNumber" component="p" />
             </div>
             <div className={style.formItem}>
-              <label htmlFor="mobileNumber">Mobile Number</label>
+              <label htmlFor="phoneNumber">Mobile Number</label>
               <Field
                 type="tel"
-                name="mobileNumber"
-                id="mobileNumber"
-                placeholder="+918082123546"
+                name="phoneNumber"
+                id="phoneNumber"
+                placeholder="e.g, 8082123546"
               />
-              <ErrorMessage name="mobileNumber" component="div" />
+              <ErrorMessage name="phoneNumber" component="div" />
               </div>
             <div className={style.formItem}>
               <label htmlFor="addressOne">Address 1</label>

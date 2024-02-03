@@ -11,7 +11,7 @@
 .item5 { grid-area: footer; }
 .grid-container{
     display: grid;
-    height: 100vh;
+    height: 100%;
     grid-template-columns: 0.6fr 2fr;
     grid-template-rows: 1fr 2fr 2fr 0.3fr;
     grid-template-areas: 

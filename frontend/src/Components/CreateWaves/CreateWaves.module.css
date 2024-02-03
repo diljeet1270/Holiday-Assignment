@@ -55,7 +55,8 @@
 .waveInputs input[type="file"] {
     display: none;
   }
-.waveInputs input[type="text"] {
+  .fileInputLabel {
+        display: inline-block;
         padding-left: 15px;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -65,7 +66,7 @@
         outline: none;
         font-size: 1.2em;
         margin: 12px 12px;
-}
+  }
 .waveInputs textarea {
     height: 80px;
     outline: none;

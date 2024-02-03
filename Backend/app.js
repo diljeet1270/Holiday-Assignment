@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var profileRouter = require('./routes/profile');
-
+var waveRouter = require('./routes/waveRoutes');
 var app = express();
 
 // view engine setup
@@ -28,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
+app.use('/waves', waveRouter);
 
 models.sequelize.sync().then(() => {
   console.log('Database synced');

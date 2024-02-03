@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import imr from "../../assets/LogoImage.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import open_eye from '../../assets/open_eye.png';
+import close_eye from '../../assets/close_eye.png';
 import { toast } from "react-toastify";
 import styles from './Signup.module.css';
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../Footer/Footer";
 import Button from '../Button/Button'
 const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   let navigate = useNavigate();
   const initialValues = {
     firstName: "",
@@ -57,7 +60,6 @@ const Signup = () => {
     <>
       <div className={styles.signupContainer}>
         <div className={styles.signupImage}>
-          <img src={imr} alt="Signup" />
         </div>
         <div className={styles.formContainer}>
           <Formik
@@ -125,15 +127,27 @@ const Signup = () => {
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="password">Password</label>
-                <Field type="password" id="password" name="password" />
+                <Field type={showPassword ? "text" : "password"} id="password" name="password" />
+                <img
+                  src={showPassword ? open_eye : close_eye}
+                  alt="Show Me/Hide Me"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={styles.eyeIcon}
+                />
                 <ErrorMessage name="password" component="div" />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <Field
-                  type="password"
+                  type={showConfirmPassword ? "text": "password"}
                   id="confirmPassword"
                   name="confirmPassword"
+                />
+                <img
+                  src={showConfirmPassword ? open_eye : close_eye}
+                  alt="Show Me/Hide Me"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className={styles.eyeIcon}
                 />
                 <ErrorMessage name="confirmPassword" component="div" />
               </div>

@@ -1,0 +1,32 @@
+.gridContainer{
+    display: grid;
+    grid-template-columns: 0.6fr 2fr;
+    grid-template-rows: 0.3fr 0.1fr 2fr 0.2fr;
+    grid-template-areas: 
+    'sidebar header'
+    'sidebar heading'
+    'sidebar friendsList'
+    'sidebar footer';
+    row-gap: 30px;
+    background-color: rgb(244,245,250);
+    min-height: 100vh;
+  }
+  .heading {
+    font-size: 1.5em;
+    text-align: left;
+  }
+  .heading a {
+    margin: 0 18px;
+    text-decoration: none;
+    color: black;
+  }
+  .friendsList {
+    background-color: white;
+    margin: 0 18px;
+  }
+  .firstSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 10px 20px 20px;
+  }

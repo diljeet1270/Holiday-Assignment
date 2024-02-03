@@ -15,7 +15,7 @@
   /* Additional styles for the show/hide password button */
 .customButton[type="button"] {
     margin-top: 8px;
-    background-color: transparent;
+    background-color: rgb(47, 72, 107);
     border: none;
     color: white;
     cursor: pointer;

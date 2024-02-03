@@ -1,20 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, ErrorMessage, Formik, Field } from "formik";
 import * as yup from "yup";
 import style from "./profileDetails.module.css";
 import axios from "axios";
 import {toast} from 'react-toastify';
 import Button from "../Button/Button";
-const personalDetails = () => {
+
+const PersonalDetails = () => {
   const token = localStorage.getItem('token')
-  const initialValues = {
-    dob: '',
-    gender: '',
-    maritalStatus: '',
-    socialSecurityNumber: '',
-    social: '',
-    kids: '',
-  };
+
+    // Form data for prefill.
+    const [data, setData] = useState({});
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/profile/v1/personalDetails',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if(response.data.status){
+          setData(response.data.data);
+        }else{
+          console.log("Error Fetching Data");
+          }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    
+    useEffect(() => {
+      fetchData();
+    }, []);
   const handleSubmit = async (values) => {
     try{
       console.log(values);
@@ -37,9 +54,17 @@ catch(error) {
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          dob: data.dob || '',
+          gender: data.gender || '',
+          maritalStatus: data.maritalStatus || '',
+          socialSecurityNumber: data.socialSecurityNumber || '',
+          social: data.social || '',
+          kids: data.kids || '',
+        }}
         validationSchema={yup.object().shape({})}
         onSubmit={handleSubmit}
+        enableReinitialize
       >
         <Form>
           <div className={style.formContainer}>
@@ -49,11 +74,11 @@ catch(error) {
                 type="date"
                 name="dob"
                 id="dob"
-                placeholder="John"
+                placeholder="e.g, 12-12-2002"
               />
               <ErrorMessage
                 name="dob"
-                component="div"
+                component="p"
                 style={{ color: "red", fontSize: "12px" }}
               />
               </div>
@@ -84,7 +109,7 @@ catch(error) {
                 type="tel"
                 name="socialSecurityNumber"
                 id="socialSecurityNumber"
-                placeholder="456128"
+                placeholder="e.g, 456128"
               />
               <ErrorMessage name="socialSecurityNumber" component="div" />
             </div>
@@ -94,13 +119,13 @@ catch(error) {
                 type="text"
                 name="social"
                 id="social"
-                placeholder="Facebook"
+                placeholder="Facebook or Instagram"
               />
               <ErrorMessage name="social" component="div" />
               </div>
             <div className={style.formItem}>
               <label htmlFor="kids">Kids (If any)</label>
-              <Field name="kids" placeholder="1" />
+              <Field name="kids" placeholder="e.g, 1 or 2" />
               <ErrorMessage name="kids" component="div" />
             </div>
             <div >
@@ -112,4 +137,4 @@ catch(error) {
     </div>
   );
 };
-export default personalDetails;
+export default PersonalDetails;

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Preferences extends Model {
     static associate(models) {
       // Define association with the User table
-      Preferences.belongsTo(models.User, {
+      Preferences.belongsTo(models.usertable, {
         foreignKey: "userId",
         onDelete: "CASCADE",
       });
