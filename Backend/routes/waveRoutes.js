@@ -1,16 +1,9 @@
 const express = require('express');
-const upload = require('../utils/uploadFile.js');
-const { storeWaveData } = require('../controllers/waveController');
-
+const upload = require('../utils/waveUpload');
+const waveController = require('../controllers/waveController')
 const router = express.Router();
 
-router.post('/upload', upload.single('waveImage'), async (req, res) => {
-  const { caption } = req.body;
-  const imagePath = req.file.path;
 
-  await storeWaveData(imagePath, caption);
-
-  res.json({ message: 'File uploaded successfully.' });
-});
+router.post('/v1/wave', upload.single('image'),waveController.createWave);
 
 module.exports = router;
