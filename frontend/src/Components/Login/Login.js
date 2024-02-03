@@ -36,7 +36,7 @@ const Login = () => {
           progress: undefined,
         });
         localStorage.setItem("token", response.data.data.user.token);
-        console.log(response);
+        localStorage.setItem("name", response.data.data.user.firstName+" "+response.data.data.user.lastName);
         navigate("/dashboard");
       } else {
         toast.error(response.data.message, {

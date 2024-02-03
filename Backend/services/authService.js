@@ -41,6 +41,7 @@ exports.login = async(email, password)=>{
       lastName: user.lastName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      profilePic: user.profilePic,
       token: token,
     };
   }

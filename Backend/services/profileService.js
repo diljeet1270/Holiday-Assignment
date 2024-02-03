@@ -9,7 +9,6 @@ const updateBasicDetails = async (data, id) =>{
 }
 
 const createBasicDetails = async (data, id) => {
-    console.log("This object is not iterable",data)
     return await usertable.create({...data,id})
 }
 
@@ -25,6 +24,30 @@ const createPersonalDetails = async (data, id) => {
     return await usertable.create({...data,id})
 }
 
+const updateProfilePic = async (file, id) => {
+    return await usertable.update({ profilePic: file.filename || null },
+        {where: {id},}
+    );
+}
+
+const getProfilePic = async(id) =>{
+    try{
+        let userDetails = await usertable.findOne({where:{id}}); 
+        if(userDetails){
+            return {
+                profilePic: userDetails.profilePic
+            } 
+        }
+        else {
+            return null;
+        }
+        
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
 module.exports = {
     getBasicDetails,
     updateBasicDetails,
@@ -32,4 +55,6 @@ module.exports = {
     getPersonalDetails,
     updatePersonalDetails,
     createPersonalDetails,
+    updateProfilePic,
+    getProfilePic,
 };

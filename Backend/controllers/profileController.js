@@ -1,6 +1,7 @@
 const { verifyToken } = require("../utils/tokenUtil");
 const {validateBasicDetails,validatePersonalDetails} = require("../utils/validators");
 const profileServices = require('../services/profileService');
+const upload =  require('../utils/uploadFile');
 
 // controller to update the Bacic details if already exists other wise create the details
 exports.updateBasicDetails = async(req, res) => {
@@ -143,4 +144,72 @@ exports.getPersonalDetails = async(req, res) => {
             data: null,
         });
      }
+}
+
+// Controller to Update profile picture  of user
+
+exports.updateProfilePicture = async (req, res) => {
+    try {
+        // Extract the file from the request
+        const file = req.file;
+
+        // Verify the token and process the request
+        verifyToken(req, res, async (decoded) => {
+            const { id } = req.user;
+            
+            // Update the profile picture using the profileServices
+            const data = await profileServices.updateProfilePic(file, id);
+
+            // Check if the profile picture was successfully updated
+            if (!data) {
+                return res.status(401).json({
+                    status: 'error',
+                    message: 'Error found',
+                    data: null,
+                });
+            } else {
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'Profile pic updated successfully.',
+                    data: {
+                        profilePic: `http://localhost:3001/${file.filename}`,
+                    },
+                });
+            }
+        });
+    } catch (error) {
+        console.log("Error in updating Profile Picture");
+        console.log(error);
+        return res.status(400).send({
+            status: 'fail',
+        });
+    }
+};
+
+exports.getProfilePic = async (req, res) =>{
+  try {
+    verifyToken(req, res, async (decoded) => {
+      let {id} = req.user;
+      const data =await profileServices.getProfilePic(id);
+      if (!data) {
+        return res.status(401).json({
+            status: 'error',
+            message: 'Error found',
+            data: null,
+        });
+    } else {
+        console.log(data);
+        return res.status(200).json({
+            status: 'success',
+            message: 'Profile pic fetched successfully.',
+            data: {
+              profilePic: `http://localhost:3001/${data.profilePic}`
+            },
+        });
+    }
+    })
+  }
+  catch(error){
+    console.error(error);
+  }
 }

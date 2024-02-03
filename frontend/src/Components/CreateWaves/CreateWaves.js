@@ -1,10 +1,11 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
+import axios from "axios";
 import styles from "./CreateWaves.module.css";
 import Button from "../Button/Button";
 import Header from "../header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
-import profilePic from "../../assets/maleLogo.jpg";
+import dummyPic from "../../assets/maleLogo.jpg";
 import SearchBar from "../SearchBar/SearchBar";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
@@ -14,7 +15,30 @@ const CreateWaves = () => {
     { name: "Jane Doe", age: 28, profession: "Designer" },
     { name: "Sam Smith", age: 45, profession: "Manager" },
   ];
+  const [profileIcon, setProfileIcon] = useState();
+  const token = localStorage.getItem("token");
+  const getUserPicture = async () => {
+    try {
+      let response = await axios.get("http://localhost:3001/profile/v1/profilePicture",{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
+      if (response) {
+        setProfileIcon(response.data.data.profilePic ||dummyPic);
+      } else {
+        console.log("error fetching picture")
+      }
+    } catch (err) {
+      console.log("Error getting user picture");
+    }
+  };
 
+  // useEffect to render the picture first.
+  // This will trigger the function to get the users picture
+  useEffect(() => {
+    getUserPicture();
+    });
   const [message, setMessage] = useState('');
   const formData = new FormData();
   const handleFileChange = (e) => {
@@ -42,7 +66,7 @@ const CreateWaves = () => {
       <div className={styles.wavesContainer}>
         <div className={styles.profilePicContainer}>
           <div className={styles.profilePicture}>
-            <img src={profilePic} alt="user profile" />
+            <img src={profileIcon ? profileIcon : dummyPic} alt="user profile" />
           </div>
           <div>
             <h2>John Doe</h2>

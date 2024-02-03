@@ -1,5 +1,5 @@
 const express = require('express');
-const upload = require('../utils/upload');
+const upload = require('../utils/uploadFile.js');
 const { storeWaveData } = require('../controllers/waveController');
 
 const router = express.Router();
