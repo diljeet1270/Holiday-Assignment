@@ -5,5 +5,6 @@ const router = express.Router();
 
 
 router.post('/v1/wave', upload.single('image'),waveController.createWave);
+router.get('/v1/waves',waveController.getWaves);
 
 module.exports = router;

@@ -40,3 +40,44 @@ exports.createWave = async (req, res)=>{
   }
 
 }
+
+exports.getWaves = async (req, res) => {
+  try {
+      verifyToken(req, res, async () => {
+          const { id } = req.user;
+          const waves = await WaveService.getWaves(id);
+
+          let status = null;
+          let message = null;
+          let data = null;
+
+          if (waves && waves.length > 0) {
+              status = 200;
+              message = "Wave list fetched successfully!";
+              data = waves.map(wave => ({
+                  id: wave.id,
+                  waveImage: wave.waveImage,
+                  waveMessage: wave.waveMessage,
+                  status: wave.status,
+              }));
+          } else {
+              status = 404;
+              message = "No waves found!";
+              data = [];
+          }
+
+          res.json({
+              status,
+              message,
+              data,
+          });
+      });
+  } catch (error) {
+      console.error("Error in fetching waves:", error);
+      res.status(500).json({
+          status: 500,
+          message: "Internal server error",
+          data: null,
+      });
+  }
+};
