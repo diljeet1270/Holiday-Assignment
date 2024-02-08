@@ -1,0 +1,20 @@
+.container {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+    text-align: left;
+}
+.container div input {
+    height: 44px;
+    width: 360px;
+}
+.container div {
+    margin-bottom: 8px;
+}
+.link {
+    text-decoration: none;
+}

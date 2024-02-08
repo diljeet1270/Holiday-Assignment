@@ -81,3 +81,30 @@ exports.getWaves = async (req, res) => {
       });
   }
 };
+
+exports.changeWaveStatus = async (req, res) => {
+  try {
+    verifyToken(req, res, async () => {
+      let status = req.body.status;
+      let id = req.body.id;
+      let wave = await WaveService.changeStatus(id, status);
+      if (!wave) {
+        res.json({
+          status: 404,
+          message: `Wave with the given ID not found`,
+          data: null,
+        })
+        } else {
+          res.json({
+            status: 200,
+            message: "wave status updated",
+            data: wave,
+          })
+        }
+    })
+
+  }catch (err){
+    console.error(err);
+  }
+
+}

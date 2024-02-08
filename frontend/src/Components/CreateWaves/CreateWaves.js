@@ -105,11 +105,11 @@ const CreateWaves = () => {
   const updateStatus = async (waveId, waveStatus) => {
     try {
       const response = await axios.put(
-        `http://127.0.0.5:3000/user/waves`,
-        { status: !waveStatus, id: waveId },
+        `http://localhost:3001/waves/v1/wave`,
+        {id: waveId, status: !waveStatus },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -128,22 +128,13 @@ const CreateWaves = () => {
   const handleShowImageInput = () => {
     fileInputRef.current.click();
   };
+
   const handleWaveSearch = (event) => {
-    if (!waveList || !Array.isArray(waveList)) {
-        console.error("waveList is not properly initialized or is not an array.");
-        return;
-    }
-
-    const filteredWave = waveList.filter((item) => {
-        if (item && item.message && typeof item.message === 'string') {
-            return item.message.includes(event.target.value);
-        }
-        return false;
-    });
-
-    setSearchWaveList(filteredWave);
-};
-
+        const filteredWave = waveList.filter((item) =>
+            item.waveMessage.includes(event.target.value)
+        );
+        setSearchWaveList(filteredWave);
+    };
   const handleStatusChange = (id, status) => {
     updateStatus(id, status);
   };

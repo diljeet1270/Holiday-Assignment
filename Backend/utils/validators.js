@@ -14,6 +14,20 @@ const validateSignup = (data) => {
   return signupSchema.validate(data, { abortEarly: false });
 };
 
+// Validation schema for signup
+const adminSignupSchema = Joi.object({
+  fullName: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+  confirmPassword: Joi.string().valid(Joi.ref('password'))
+    .required()
+    .messages({ 'any.only': 'Passwords do not match' }) // Custom error message
+});
+
+const validateAdminSignup = (data) => {
+  return adminSignupSchema.validate(data, { abortEarly: false });
+}
+
 //Validation schema for Login.
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -92,5 +106,6 @@ module.exports = {
   validatePreferencesUpdate,
   validateBasicDetails,
   validatePersonalDetails,
+  validateAdminSignup
 };
 

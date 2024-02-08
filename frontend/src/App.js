@@ -1,6 +1,6 @@
 import './App.css';
-import Signup from './Components/Signup/Signup';
-import Login from './Components/Login/Login';
+// import Signup from './Components/Signup/Signup';
+// import Login from './Components/Login/Login';
 import { BrowserRouter,Routes, Route} from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,6 +13,8 @@ import Myprofile from './Components/Myprofile/Myprofile';
 import CreateWaves from './Components/CreateWaves/CreateWaves';
 import Friends from './Components/Friends/Friends';
 import InviteFriends from './Components/Friends/InviteFriends';
+import Login from './Components/Admin/Login/Login';
+import Signup from './Components/Admin/Signup/Signup';
 function App() {
   return (
     <div className="App">
