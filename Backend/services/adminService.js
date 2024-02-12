@@ -1,4 +1,4 @@
-const {admin} = require('../models')
+const {admin, usertable} = require('../models')
 const {generateToken, verifyToken} = require('../utils/tokenUtil');
 const bcrypt = require("bcrypt");
 
@@ -49,7 +49,36 @@ const Login = async (email, password) => {
     }
 }
 
+const countUser = async () => {
+  try {
+    const totalUser = await usertable.count();
+    console.log("number of users", totalUser)
+    return totalUser;
+  } catch (error) {
+    return null;
+  }
+
+}
+const activeUsers = async () => {
+  try {
+    return await usertable.count({where:{status: 1}})
+  } catch (error) {
+    throw error;
+    
+  }
+}
+
+const countWaves = async () => {
+  try {
+    return  await wavetable.count();
+  } catch (error) {
+    throw error;
+  }
+}
 module.exports = {
     Login,
     Signup,
+    countUser,
+    activeUsers,
+    countWaves,
 }

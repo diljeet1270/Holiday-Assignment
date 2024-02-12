@@ -15,6 +15,7 @@ import Friends from './Components/Friends/Friends';
 import InviteFriends from './Components/Friends/InviteFriends';
 import Login from './Components/Admin/Login/Login';
 import Signup from './Components/Admin/Signup/Signup';
+import AdminDashboard from './Components/Admin/AdminDashboard/AdminDashboard';
 function App() {
   return (
     <div className="App">
@@ -29,6 +30,8 @@ function App() {
         <Route path='/changepassword' element={<ProtectionComponent Component ={ChangePassword}/>}/>
         <Route path='/preferences' element={<ProtectionComponent Component={Preferences}/>}/>
         <Route path='/createWaves' element={<ProtectionComponent  Component= {CreateWaves} />} />
+        <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+        
         <Route path="*" element={<NotFound />}></Route>
        </Routes>
       </BrowserRouter>

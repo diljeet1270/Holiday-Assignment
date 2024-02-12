@@ -1,4 +1,4 @@
-const {Login, Signup} = require('../services/adminService');
+const {Login, Signup, countUser, activeUsers, countWaves} = require('../services/adminService');
 const {validateAdminSignup} = require('../utils/validators');
 
 
@@ -56,6 +56,81 @@ exports.Login = async (req, res) =>{
         res.json({
             status: 500,
             message: "Internal Server error",
+            data: null,
+        })
+    }
+}
+exports.countUsers = async (req, res) => {
+    try {
+        const totalUser = await countUser();
+        if(totalUser){
+            res.json({
+                status: "sucess",
+                message: "User found",
+                data: totalUser,
+            })
+        }
+        else {
+            res.json({
+                status: "succes",
+                message: "No user found",
+                data: null,
+            })
+        }
+    } catch (error) {
+        res.json({
+            status: "error",
+            message: "internal server error",
+            data: null,
+        })
+    }
+}
+exports.activeUsers = async (req, res) => {
+    try {
+        const totalUser = await activeUsers();
+        if(totalUser){
+            res.json({
+                status: "sucess",
+                message: "User found",
+                data: totalUser,
+            })
+        }
+        else {
+            res.json({
+                status: "succes",
+                message: "No user found",
+                data: null,
+            })
+        }
+    } catch (error) {
+        res.json({
+            status: "error",
+            message: "internal server error",
+            data: null,
+        })
+    }
+}
+exports.countWaves = async (req, res) => {
+    try {
+        const totalUser = await countWaves();
+        if(totalUser){
+            res.json({
+                status: "sucess",
+                message: "Waves counted",
+                data: totalUser,
+            })
+        }
+        else {
+            res.json({
+                status: "succes",
+                message: "No waves found",
+                data: null,
+            })
+        }
+    } catch (error) {
+        res.json({
+            status: "error",
+            message: "internal server error",
             data: null,
         })
     }
